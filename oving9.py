@@ -14,30 +14,61 @@ class Sporsmal:
     
     def __str__(self):
         return self.tekst
-        
-sporsmal_tekst = [
-    "Hvilken farge har epler? \n(1) Rød/Grønn\n(2) Lilla\n(3) Oransj\n\n",
-    "Hvilken farge har Bananer?\n(1) Blå\n(2) Sølv\n(3) Gul\n\n",
-    "Hvilken farge har Jordbær?\n(1) Gul\n(2) Rød\n(3) Blå\n\n"
-    ]
-
-
-sporsmaler = [
-    Sporsmal(sporsmal_tekst[0], "1"),
-    Sporsmal(sporsmal_tekst[1], "3"),
-    Sporsmal(sporsmal_tekst[2], "2"),
-    ]
-
-def spill_spillet(sporsmaler):
-    resultat = 0
-    for sporsmal in sporsmaler:
-        print(sporsmal)
-        svar = input("Ditt Svar:")
-        if svar == sporsmal.svar:
-            resultat += 1
-            print("Svaret ditt er riktig!")
-        else:
-            print("Svaret ditt er feil!")
-    print("Du fikk " + str(resultat) + " av " + str(len(sporsmaler)) + " riktig!")
     
-spill_spillet(sporsmaler)
+    def korrekt_svar_tekst(self):
+        return self.sporsmal.svar
+
+
+def les_fil():
+    lesefil = open("sporsmaalsfil.txt", "r", encoding="UTF8")
+    for linje in lesefil:
+        linje = linje.strip()
+        sporsmal_tekst.append(linje)
+    lesefil.close()
+
+    
+def spill_spillet(sporsmaler):
+    resultat1 = 0
+    resultat2 = 0
+    for sporsmal in sporsmaler:
+        print("\n")
+        print(sporsmal)
+        svar1 = input("Spilller1 sitt svar:")
+        svar2 = input("Spiller2 sitt svar:")
+        if svar1 == sporsmal.svar:
+            resultat1 += 1
+        if svar2 == sporsmal.svar:
+            resultat2 += 1
+        print("\nRett svaralternativ er: " + sporsmal.svar)
+        if svar1 == sporsmal.svar:
+            print("Spiller1: Korrekt")
+        else:
+            print("Spiller1: Feil")
+        if svar2 == sporsmal.svar:
+            print("Spiller2: Korrekt")
+        else:
+            print("Spiller2: Feil")
+        
+          
+    print("Spiller 1 fikk " + str(resultat1) + " av " + str(len(sporsmaler)) + " riktig!")
+    print("Spiller 2 fikk " + str(resultat2) + " av " + str(len(sporsmaler)) + " riktig!")
+
+    
+
+if __name__ == "__main__":
+    sporsmal_tekst = []
+        
+    les_fil()
+    
+    sporsmaler = [
+        Sporsmal(sporsmal_tekst[0], "2"),
+        Sporsmal(sporsmal_tekst[1], "1"),
+        Sporsmal(sporsmal_tekst[2], "0"),
+        Sporsmal(sporsmal_tekst[3], "2"),
+        Sporsmal(sporsmal_tekst[4], "1"),
+        Sporsmal(sporsmal_tekst[5], "1"),
+        Sporsmal(sporsmal_tekst[6], "3"),
+        Sporsmal(sporsmal_tekst[7], "1"),
+        ]
+    
+    spill_spillet(sporsmaler)
